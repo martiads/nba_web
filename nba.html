@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Noticias y Actualizaciones</title>
+   
+    <!-- Material Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet">
+   
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+   
+    <!-- Script de AdSense va aquí -->
+   
+    <style>
+        :root {
+            --nba-red: #c8102e;
+            --nba-blue: #1d428a;
+            --nba-dark: #000000;
+            --nba-light: #ffffff;
+            --nba-gray: #f0f0f0;
+        }
+       
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+       
+        /* Navbar Styles */
+        .navbar {
+            background-color: var(--nba-blue);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 1rem;
+        }
+       
+        .navbar-brand {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+       
+        .navbar-brand img {
+            margin-right: 10px;
+        }
+       
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            margin: 0 3px;
+        }
+       
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+       
+        .nav-link.active {
+            background-color: var(--nba-red);
+            color: white !important;
+        }
+       
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--nba-blue) 0%, var(--nba-red) 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+       
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.nba.com/assets/logos/leagues/logo-nba.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 50%;
+            opacity: 0.05;
+            z-index: 0;
+        }
+       
+        .hero-title {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+       
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+        }
+       
+        .hero-section .btn {
+            position: relative;
+            z-index: 1;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            border-radius: 30px;
+            background-color: white;
+            color: var(--nba-blue);
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+       
+        .hero-section .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            background-color: var(--nba-red);
+            color: white;
+        }
+       
+        /* Card Styles */
+        .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+       
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+       
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+        }
+       
+        .card-title {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            color: var(--nba-blue);
+            margin-bottom: 1rem;
+        }
+       
+        .card-body {
+            padding: 1.5rem;
+        }
+       
+        .article-meta {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+       
+        .badge-nba {
+            background-color: var(--nba-red);
+            color: white;
+            font-weight: 500;
+        }
+       
+        .btn-primary {
+            background-color: var(--nba-blue);
+            border: none;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+       
+        .btn-primary:hover {
+            background-color: var(--nba-red);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+       
+        /* Sidebar Styles */
+        .sidebar-card {
+            margin-bottom: 1.5rem;
+        }
+       
+        .sidebar-card .card-header {
+            background-color: var(--nba-blue);
+            color: white;
+            font-weight: 600;
+            padding: 1rem 1.5rem;
+            border: none;
+        }
+       
+        .recent-posts {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+       
+        .recent-posts li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+       
+        .recent-posts li:last-child {
+            border-bottom: none;
+        }
+       
+        .recent-posts a {
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: block;
+        }
+       
+        .recent-posts a:hover {
+            color: var(--nba-red);
+            transform: translateX(5px);
+        }
+       
+        .team-standings {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+       
+        .team-standings li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+       
+        .team-standings li:last-child {
+            border-bottom: none;
+        }
+       
+        .ad-placeholder {
+            background-color: #f8f9fa;
+            border: 1px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+       
+        /* Pagination */
+        .pagination {
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+        }
+       
+        .page-link {
+            color: var(--nba-blue);
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 3px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+       
+        .page-link:hover {
+            background-color: var(--nba-blue);
+            color: white;
+        }
+       
+        .page-item.active .page-link {
+            background-color: var(--nba-red);
+            border-color: var(--nba-red);
+        }
+       
+        /* Footer */
+        footer {
+            background-color: var(--nba-blue);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+       
+        footer h4 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+       
+        footer h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--nba-red);
+        }
+       
+        footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+       
+        footer a:hover {
+            color: white;
+            text-decoration: none;
+        }
+       
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+       
+        .social-icons a:hover {
+            background-color: var(--nba-red);
+            transform: translateY(-3px);
+        }
+       
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--nba-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+       
+        .scroll-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+       
+        .scroll-to-top:hover {
+            background-color: var(--nba-blue);
+            transform: translateY(-3px);
+        }
+       
+        /* Estilos para los contadores de visitas y likes */
+        .interaction-counter {
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background-color: #f8f9fa;
+        }
+       
+        .interaction-counter:hover {
+            color: var(--nba-red);
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+       
+        .interaction-counter.active {
+            color: var(--nba-red);
+            font-weight: 500;
+        }
+       
+        .interaction-counter i {
+            margin-right: 5px;
+            font-size: 1.1rem;
+        }
+       
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+           
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+           
+            .card-img-top {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://www.nba.com/assets/logos/leagues/logo-nba.svg" alt="NBA Logo" height="30">
+                NBA Noticias
+            </a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html"><i class="fas fa-home me-1"></i>Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="noticias.html"><i class="far fa-newspaper me-1"></i>Noticias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jugadores.html"><i class="fas fa-user-alt me-1"></i>Jugadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="equipos.html"><i class="fas fa-basketball-ball me-1"></i>Equipos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calendario.html"><i class="far fa-calendar-alt me-1"></i>Calendario</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">NBA Noticias y Actualizaciones</h1>
+            <p class="hero-subtitle">Tu fuente definitiva para las últimas noticias, análisis y actualizaciones del mundo del baloncesto profesional.</p>
+            <a href="noticias.html" class="btn btn-primary btn-lg">Últimas Noticias</a>
+        </div>
+    </section>
+
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Main Content Area -->
+            <div class="col-lg-8">
+                <!-- Article 1 -->
+                <div class="card mb-4 article-card">
+                    <img src="https://cdn.nba.com/manage/2023/03/GettyImages-1248737790-scaled-e1679602392367-1568x882.jpg" class="card-img-top" alt="Stephen Curry">
+                    <div class="card-body">
+                        <h2 class="card-title">Hito histórico de Steph Curry</h2>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar-alt"></i> Publicado el 14 de marzo, 2025</span>
+                            <span class="ms-3"><i class="far fa-user"></i> Por: Editor NBA</span>
+                            <span class="badge bg-danger ms-2">Destacado</span>
+                        </div>
+                        <p>Stephen Curry, estrella de los Golden State Warriors, se convirtió en el primer jugador en la historia de la NBA en alcanzar 4,000 triples en su carrera durante un partido contra los Sacramento Kings, con una victoria de 130-104.</p>
+                        <p>Este logro refuerza su legado como uno de los mejores tiradores de la liga, extendiendo su récord histórico en triples. La noticia fue reportada por ESPN, destacando su impacto en el juego y su consistencia, con al menos un triple en 967 de sus 1,010 partidos.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a href="noticia-curry.html" class="btn btn-primary">Leer más</a>
+                            <div>
+                                <span class="me-3 interaction-counter view-counter" data-article="curry"><i class="far fa-eye"></i> <span class="count">0</span></span>
+                                <span class="interaction-counter like-counter" data-article="curry"><i class="far fa-heart"></i> <span class="count">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <!-- Article 2 -->
+                <div class="card mb-4 article-card">
+                    <img src="https://cdn.nba.com/manage/2023/01/GettyImages-1246082856-scaled-e1674503929723-1568x882.jpg" class="card-img-top" alt="Cleveland Cavaliers">
+                    <div class="card-body">
+                        <h2 class="card-title">Desempeño de los Cleveland Cavaliers</h2>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar-alt"></i> Publicado el 19 de marzo, 2025</span>
+                            <span class="ms-3"><i class="far fa-user"></i> Por: Editor NBA</span>
+                        </div>
+                        <p>Los Cleveland Cavaliers han tenido una temporada excepcional, con un récord de 56-12 al 19 de marzo de 2025, liderando la Conferencia Este. Este desempeño incluye una racha de 16 victorias consecutivas, como se informó en un partido reciente contra los Memphis Grizzlies (133-124), y ya han asegurado un lugar en playoffs.</p>
+                        <p>Su dominio se debe en parte a jugadores como Evan Mobley y Darius Garland, según Basketball-Reference.com. Este récord los posiciona como favoritos para el primer puesto en su conferencia.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a href="noticia-cavaliers.html" class="btn btn-primary">Leer más</a>
+                            <div>
+                                <span class="me-3 interaction-counter view-counter" data-article="cavaliers"><i class="far fa-eye"></i> <span class="count">0</span></span>
+                                <span class="interaction-counter like-counter" data-article="cavaliers"><i class="far fa-heart"></i> <span class="count">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <!-- Article 3 -->
+                <div class="card mb-4 article-card">
+                    <img src="https://cdn.nba.com/manage/2023/03/GettyImages-1472745498-scaled-e1679602392367-1568x882.jpg" class="card-img-top" alt="Paul George y Trey Murphy III">
+                    <div class="card-body">
+                        <h2 class="card-title">Lesiones que terminan la temporada de Paul George y Trey Murphy III</h2>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar-alt"></i> Publicado el 17 de marzo, 2025</span>
+                            <span class="ms-3"><i class="far fa-user"></i> Por: Editor NBA</span>
+                        </div>
+                        <p>Dos jugadores destacados enfrentan finales de temporada anticipados debido a lesiones. Paul George, de los Philadelphia 76ers, recibió inyecciones en su rodilla izquierda y aductor el 17 de marzo de 2025, quedando fuera por al menos seis semanas, lo que termina su temporada regular, según AP News. Esto afecta las esperanzas de playoffs de los 76ers, quienes tienen un récord de 23-44.</p>
+                        <p>Por otro lado, Trey Murphy III, de los New Orleans Pelicans, sufrió una lesión de hombro el 17 de marzo de 2025 durante un partido contra los Detroit Pistons, con un desgarro de labrum y una rotura parcial del manguito rotador, también terminando su temporada, según The Athletic. Esto es un golpe para los Pelicans, quienes ya lidian con varias ausencias clave.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a href="noticia-lesiones.html" class="btn btn-primary">Leer más</a>
+                            <div>
+                                <span class="me-3 interaction-counter view-counter" data-article="lesiones"><i class="far fa-eye"></i> <span class="count">0</span></span>
+                                <span class="interaction-counter like-counter" data-article="lesiones"><i class="far fa-heart"></i> <span class="count">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <!-- Article 4 - Dyson Daniels -->
+                <div class="card mb-4 article-card">
+                    <img src="https://cdn.nba.com/manage/2023/01/dyson-daniels-iso-1568x882.jpg" class="card-img-top" alt="Dyson Daniels">
+                    <div class="card-body">
+                        <h2 class="card-title">Desempeño defensivo de Dyson Daniels</h2>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar-alt"></i> Publicado el 18 de marzo, 2025</span>
+                            <span class="ms-3"><i class="far fa-user"></i> Por: Editor NBA</span>
+                        </div>
+                        <p>Dyson Daniels, un guardia de 22 años para los Atlanta Hawks, está teniendo una temporada destacada, especialmente en defensa. Hasta el 18 de marzo de 2025, ha acumulado 194 robos, promediando 3 por partido, y podría alcanzar 233 robos con 13 juegos restantes, lo que lo colocaría entre los top 15 históricamente desde la temporada 1973-1974.</p>
+                        <p>Ha tenido 12 juegos con 5+ robos y 37 juegos con 3+ robos, empatando el récord de los Hawks con Mookie Blaylock en los años 90. Es considerado un contendiente para el premio al Mejor Defensor del Año, compitiendo con jugadores como Evan Mobley y Draymond Green, según StatMuse. Los Hawks, séptimos en el Este, probablemente clasifiquen a playoffs, complementando la ofensiva de Trae Young.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a href="noticia-daniels.html" class="btn btn-primary">Leer más</a>
+                            <div>
+                                <span class="me-3 interaction-counter view-counter" data-article="daniels"><i class="far fa-eye"></i> <span class="count">0</span></span>
+                                <span class="interaction-counter like-counter" data-article="daniels"><i class="far fa-heart"></i> <span class="count">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <!-- Article 5 - Cooper Flagg -->
+                <div class="card mb-4 article-card">
+                    <img src="https://cdn.vox-cdn.com/thumbor/Yk1MxVlFwoTWgUnFQlJbHwXXpkc=/0x0:3000x2000/1200x800/filters:focal(1260x760:1740x1240)/cdn.vox-cdn.com/uploads/chorus_image/image/72874480/1773416526.0.jpg" class="card-img-top" alt="Cooper Flagg">
+                    <div class="card-body">
+                        <h2 class="card-title">Proyección de Cooper Flagg para el Draft 2025</h2>
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar-alt"></i> Publicado el 20 de marzo, 2025</span>
+                            <span class="ms-3"><i class="far fa-user"></i> Por: Editor NBA</span>
+                        </div>
+                        <p>Cooper Flagg, un alero de 17 años para Duke, es proyectado como el número uno seguro para el Draft de la NBA 2025. Promedia 19 puntos, 7 rebotes, 4 asistencias, con un 37% de efectividad en triples, y se destaca por su impacto en ambos extremos de la cancha, comparado con Giannis Antetokounmpo.</p>
+                        <p>Su liderazgo y versatilidad lo posicionan como un potencial cambiador de franquicias, según The Athletic. Los equipos con peores récords ya están posicionándose para tener opciones de seleccionarlo en el próximo draft.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a href="noticia-flagg.html" class="btn btn-primary">Leer más</a>
+                            <div>
+                                <span class="me-3 interaction-counter view-counter" data-article="flagg"><i class="far fa-eye"></i> <span class="count">0</span></span>
+                                <span class="interaction-counter like-counter" data-article="flagg"><i class="far fa-heart"></i> <span class="count">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <!-- Pagination -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="noticias-pagina2.html">2</a></li>
+                        <li class="page-item"><a class="page-link" href="noticias-pagina3.html">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="noticias-pagina2.html">Siguiente</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+           
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Search -->
+                <div class="card sidebar-card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-search me-2"></i> Buscar
+                    </div>
+                    <div class="card-body">
+                        <form action="search.html" method="GET">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Buscar noticias..." name="query">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+               
+                <!-- Recent Posts -->
+                <div class="card sidebar-card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <i class="far fa-newspaper me-2"></i> Publicaciones Recientes
+                    </div>
+                    <div class="card-body">
+                        <ul class="recent-posts">
+                            <li><a href="noticia-curry.html">Hito histórico de Steph Curry</a></li>
+                            <li><a href="noticia-cavaliers.html">Desempeño de los Cleveland Cavaliers</a></li>
+                            <li><a href="noticia-lesiones.html">Lesiones que terminan la temporada de Paul George y Trey Murphy III</a></li>
+                            <li><a href="noticia-daniels.html">Desempeño defensivo de Dyson Daniels</a></li>
+                            <li><a href="noticia-flagg.html">Proyección de Cooper Flagg para el Draft 2025</a></li>
+                        </ul>
+                    </div>
+                </div>
+               
+                <!-- Standings -->
+                <div class="card sidebar-card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <i class="fas fa-trophy me-2"></i> Clasificación
+                    </div>
+                    <div class="card-body">
+                        <h5 class="standings-title">Conferencia Este</h5>
+                        <ul class="team-standings">
+                            <li>Cleveland Cavaliers <span class="text-secondary">(56-12)</span></li>
+                            <li>Boston Celtics <span class="text-secondary">(52-16)</span></li>
+                            <li>Milwaukee Bucks <span class="text
+                            // Incrementar likes
+                                            likes = parseInt(likes) + 1;
+                                            localStorage.setItem(`${article}_likes`, likes);
+                                            localStorage.setItem(`${article}_liked`, 'true');
+                                           
+                                            // Actualizar UI
+                                            likeCounters.forEach(counter => {
+                                                counter.textContent = likes;
+                                            });
+                                           
+                                            // Cambiar estilo del botón
+                                            likeButtons.forEach(btn => {
+                                                btn.classList.add('active');
+                                                btn.querySelector('i').classList.remove('far');
+                                                btn.querySelector('i').classList.add('fas');
+                                            });
+                                        } else {
+                                            // Decrementar likes
+                                            likes = parseInt(likes) - 1;
+                                            localStorage.setItem(`${article}_likes`, likes);
+                                            localStorage.setItem(`${article}_liked`, 'false');
+                                           
+                                            // Actualizar UI
+                                            likeCounters.forEach(counter => {
+                                                counter.textContent = likes;
+                                            });
+                                           
+                                            // Cambiar estilo del botón
+                                            likeButtons.forEach(btn => {
+                                                btn.classList.remove('active');
+                                                btn.querySelector('i').classList.add('far');
+                                                btn.querySelector('i').classList.remove('fas');
+                                            });
+                                        }
+                                    });
+                                });
+                            });
+                        });
+                       
+                        // Formulario de suscripción
+                        const subscribeForm = document.getElementById('subscribe-form');
+                        const subscribeMessage = document.getElementById('subscribe-message');
+                       
+                        if (subscribeForm) {
+                            subscribeForm.addEventListener('submit', function(e) {
+                                e.preventDefault();
+                               
+                                const email = this.querySelector('input[type="email"]').value;
+                               
+                                // Simulación de envío exitoso
+                                subscribeMessage.textContent = `¡Gracias por suscribirte! Te enviaremos las últimas noticias a ${email}`;
+                                subscribeMessage.style.display = 'block';
+                                subscribeMessage.style.color = '#4CAF50';
+                               
+                                // Limpiar el formulario
+                                this.reset();
+                               
+                                // Ocultar mensaje después de 5 segundos
+                                setTimeout(() => {
+                                    subscribeMessage.style.display = 'none';
+                                }, 5000);
+                            });
+                        }
+                    </script>
+                </body>
+                </html>
